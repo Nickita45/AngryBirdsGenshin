@@ -251,6 +251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847c959143da02d45981c2fb1bb63659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroySounds: []
-  deathSound: []
-  staySound: []
+  destroySounds:
+  - {fileID: 8300000, guid: 1b51866b053177a45a4304412663fbe6, type: 3}
+  deathSound:
+  - {fileID: 8300000, guid: 08c6e04f40431b04abc85d29441d4410, type: 3}
+  - {fileID: 8300000, guid: de05dba3d9574d849827aa88626f42f8, type: 3}
+  staySound:
+  - {fileID: 8300000, guid: 425352e1bb02a7a4cb716fe7cb0973e2, type: 3}
+  - {fileID: 8300000, guid: 2684d9b24c9b85246908d80d9168394f, type: 3}
