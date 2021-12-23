@@ -36,4 +36,8 @@ public class MusicBalls : MonoBehaviour
             audioSource.Play();
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        playAttackSound();
+    }
 }

@@ -78,4 +78,5 @@ public class BallShoot : MonoBehaviour
             StartCoroutine(LevelManager.Instance.lostLevel());
         }
     }
+    
 }

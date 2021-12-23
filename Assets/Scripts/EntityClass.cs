@@ -29,6 +29,7 @@ public class EntityClass : MonoBehaviour
         }
         else if(current_stamine <= stamine/2)
         {
+            GetComponent<DestroyElementsSound>().playDestroySound();
             this.GetComponent<SpriteRenderer>().sprite = damageStatus;
         }
     }
