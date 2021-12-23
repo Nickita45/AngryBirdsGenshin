@@ -298,5 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroySounds:
   - {fileID: 8300000, guid: 35722c03214fcd146804f2031a2ce61c, type: 3}
-  deathSound: []
+  - {fileID: 8300000, guid: 7637228c8dcfef34c86acce9e5bfdef8, type: 3}
+  deathSound:
+  - {fileID: 8300000, guid: d9981773ab72f534480d7b8cc8640a82, type: 3}
   staySound: []
