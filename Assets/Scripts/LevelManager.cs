@@ -35,6 +35,16 @@ public class LevelManager : MonoBehaviour
     {
         currentEnemyCount = EnemiesObject.transform.childCount;
         textCount.text = currentRating+"";
+        setDialogSecond();
+    }
+    public void setDialogSecond()
+    {
+        if(DataHandler.Instance.userdata.dialogs[1] == false)
+        {
+            DialogController.Instance.setCurrentDialog(1);
+            DataHandler.Instance.userdata.dialogs[1] = true;
+            DataHandler.Instance.SaveData();
+        }
     }
     public void increaseRating(int count, bool isEnity)
     {
@@ -86,12 +96,65 @@ public class LevelManager : MonoBehaviour
         texts[3].text = currentRating.ToString();
         //7,8,9
         
+        int countStars= 1;
         images[7].sprite = starActive;
         if(currentRating >= maxFor2Stars)
+        {    
             images[8].sprite = starActive;
+            countStars++;
+        }
         if(currentRating >= maxFor3Stars)
+        {    
             images[9].sprite = starActive;
+            countStars++;
+        }
+        //Load Scene
+        string key = SceneManager.GetActiveScene().name;
+        key = key.Replace("Level","");
+    
+        if(DataHandler.Instance.userdata.levels.ContainsKey(key))
+        {
+            if(currentRating > DataHandler.Instance.userdata.levels[key].Rating)
+            {
+                InfoData.Level level = new InfoData.Level();
+                level.Rating = currentRating;
+                level.countStars = countStars;
+                DataHandler.Instance.userdata.levels[key] = level;
+            }
+        }
+        else
+        {
+            InfoData.Level level = new InfoData.Level();
+            level.Rating = currentRating;
+            level.countStars = countStars;
+            DataHandler.Instance.userdata.levels.Add(key,level);
+        }
+        DataHandler.Instance.SaveData();
+        texts[1].text = key.Replace("_","-");
+        texts[5].text = DataHandler.Instance.userdata.levels[key].Rating.ToString();
+
+        if(!DataHandler.Instance.userdata.isXiao && DataHandler.Instance.userdata.levels.Count == 2)
+        {
+            PanelWin.GetComponentsInChildren<Button>()[2].gameObject.SetActive(false);
+            if(DataHandler.Instance.userdata.dialogs[2] == false)
+            {
+                DialogController.Instance.setCurrentDialog(2);
+                DataHandler.Instance.userdata.dialogs[2] = true;
+                DataHandler.Instance.SaveData();
+            }
+        }
+        else
+            PanelWin.GetComponentsInChildren<Button>()[2].onClick.AddListener(nextLevel);
+        
+        if(DataHandler.Instance.userdata.dialogs[5] == false && DataHandler.Instance.userdata.levels.Count == 5)
+        {
+            DialogController.Instance.setCurrentDialog(5);
+            DataHandler.Instance.userdata.dialogs[5] = true;
+            DataHandler.Instance.SaveData();
+        }
+
     }
+
     public IEnumerator lostLevel()
     {
         
@@ -109,9 +172,22 @@ public class LevelManager : MonoBehaviour
             images[5].gameObject.SetActive(false);
         }
     }
+    public void nextLevel()
+    {
+        string key = SceneManager.GetActiveScene().name;
+        key = key.Replace("Level1_","");
+        int nextKey = int.Parse(key);
+        nextKey++;
+        
+        SceneManager.LoadScene("Level1_"+nextKey);
+    }
     public void restartLevel()
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+    public void toMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

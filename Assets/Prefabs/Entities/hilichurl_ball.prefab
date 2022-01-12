@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8348872117822250607}
   - component: {fileID: 2094519463544405501}
   - component: {fileID: 6155479964689851376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hilichurl_ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6452895643340734668}
   - component: {fileID: -6178718705540117114}
   - component: {fileID: -2303456957779142483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WoodBlock1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

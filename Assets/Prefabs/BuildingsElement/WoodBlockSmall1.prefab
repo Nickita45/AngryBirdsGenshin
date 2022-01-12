@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8239403679030065902}
   - component: {fileID: -3035861986266855660}
   - component: {fileID: -448822508615201271}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WoodBlockSmall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

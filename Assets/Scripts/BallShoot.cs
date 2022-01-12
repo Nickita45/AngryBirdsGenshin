@@ -15,6 +15,9 @@ public class BallShoot : MonoBehaviour
     private MusicBalls soundBall;
     private Animation animation;
     private float randomTimeSound = 2;
+
+    private const float SPEEDJUMP = 3, TIMERBEETWEENSTEPS = 0.01f; 
+
     private void Start()
     {
         animation = GetComponent<Animation>();
@@ -59,6 +62,7 @@ public class BallShoot : MonoBehaviour
         if(isFirst)
         {
             isPressed = true;
+            Camera.main.GetComponent<CameraMovement>().isPressedOnBall = true;
             rigidbody2DBullet.isKinematic = true;
         }
     }
@@ -66,19 +70,24 @@ public class BallShoot : MonoBehaviour
         if(isFirst)
         {
             isPressed = false;
+            Camera.main.GetComponent<CameraMovement>().isPressedOnBall = false;
             rigidbody2DBullet.isKinematic = false;
             StartCoroutine(LetGo());
         }
     }
     IEnumerator LetGo()
     {
-        
+        Vector3 oldPos = gameObject.transform.position;
         yield return new WaitForSeconds(0.1f);
         animation = null;
         
         soundBall.playflySound();
         gameObject.GetComponent<SpringJoint2D>().enabled = false;
         this.enabled = false;
+        Camera.main.GetComponent<CameraMovement>().isFollowObj = true;
+        //Camera.main.GetComponent<CameraMovement>().objOldPos = oldPos;
+        Camera.main.GetComponent<CameraMovement>().objFollow = this.gameObject;
+        StartCoroutine(Camera.main.GetComponent<CameraMovement>().FollowObjectCamera());
 
         yield return new WaitForSeconds(2f);
         if(ShootPrefab != null)
@@ -91,7 +100,7 @@ public class BallShoot : MonoBehaviour
             StartCoroutine(LevelManager.Instance.lostLevel());
         }
     }
-
+    
     IEnumerator Jump()
     {
         Vector2 startposition = this.transform.position;
@@ -105,14 +114,14 @@ public class BallShoot : MonoBehaviour
             rigidbody2DBullet.gravityScale = 0;
             while (Vector2.Distance(transform.position, targetposion) > 0.1f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, targetposion, 0.2f);
-                yield return new WaitForSeconds(0.1f);
+                transform.position = Vector2.MoveTowards(transform.position, targetposion, SPEEDJUMP * Time.deltaTime);
+                yield return new WaitForSeconds(TIMERBEETWEENSTEPS);
             }
-           // yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.1f);
             while (Vector2.Distance(transform.position, startposition) > 0.1f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, startposition, 0.2f);
-                yield return new WaitForSeconds(0.1f);
+                transform.position = Vector2.MoveTowards(transform.position, startposition, SPEEDJUMP * Time.deltaTime);
+                yield return new WaitForSeconds(TIMERBEETWEENSTEPS);
             }
 
             rigidbody2DBullet.gravityScale = 1;

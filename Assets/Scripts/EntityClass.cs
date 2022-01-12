@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 public class EntityClass : MonoBehaviour
 {
-    [SerializeField] private float stamine = 5.0f;
+    [SerializeField] public float stamine = 5.0f;
     private float current_stamine;
     [SerializeField] private Sprite damageStatus;
     [SerializeField] private bool isEnity = false;
