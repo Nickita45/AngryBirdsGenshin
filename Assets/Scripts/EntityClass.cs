@@ -21,7 +21,9 @@ public class EntityClass : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision2D)
     {
         //print(collision2D.relativeVelocity.magnitude);
-        current_stamine = current_stamine - collision2D.relativeVelocity.magnitude;
+        
+        if(collision2D.gameObject.tag != gameObject.tag || gameObject.tag  == "Untagged")
+            current_stamine = current_stamine - collision2D.relativeVelocity.magnitude;
         if(current_stamine <= 0)
         {
             if(!isDeath)
@@ -49,5 +51,10 @@ public class EntityClass : MonoBehaviour
 
         Destroy(gameObject);
         LevelManager.Instance.increaseRating(countRating,isEnity);
+    }
+    public void setFreeze()
+    {
+        this.GetComponent<SpriteRenderer>().color = Color.cyan;
+        current_stamine = 1f;
     }
 }

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stamine: 2
-  damageStatus: {fileID: 21300000, guid: 464b5b3960c679c45b21f79a11e4a65e, type: 3}
+  damageStatus: {fileID: -2122010539177210233, guid: 56af365d00a907641972a425ec25dc71, type: 3}
   isEnity: 0
   countRating: 500
   sizeText: 0.4

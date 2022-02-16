@@ -8,6 +8,7 @@ public class MusicBalls : MonoBehaviour
     public AudioClip[] attackSounds;
     public AudioClip[] staySound;
     public AudioClip[] flySound;
+    public AudioClip[] specialAttackSound;
     void Start()
     {
         audioSource = this.GetComponent<AudioSource>();
@@ -33,6 +34,14 @@ public class MusicBalls : MonoBehaviour
         if(flySound.Length != 0)
         {
             audioSource.clip = flySound[Random.Range(0,flySound.Length)];
+            audioSource.Play();
+        }
+    }
+    public void playSpecialAttackSound()
+    {   
+        if(specialAttackSound.Length != 0)
+        {
+            audioSource.clip = specialAttackSound[Random.Range(0,specialAttackSound.Length)];
             audioSource.Play();
         }
     }

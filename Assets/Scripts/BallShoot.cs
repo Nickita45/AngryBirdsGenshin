@@ -90,6 +90,10 @@ public class BallShoot : MonoBehaviour
         StartCoroutine(Camera.main.GetComponent<CameraMovement>().FollowObjectCamera());
 
         yield return new WaitForSeconds(2f);
+        nextBirdOrFinish();
+    }
+    public void nextBirdOrFinish()
+    {
         if(ShootPrefab != null)
         {
             ShootPrefab.transform.position = BallSpawnerPos.position;
@@ -97,10 +101,9 @@ public class BallShoot : MonoBehaviour
         }
         else
         {
-            StartCoroutine(LevelManager.Instance.lostLevel());
+            StartCoroutine(LevelManager.Instance.lostLevel()); 
         }
     }
-    
     IEnumerator Jump()
     {
         Vector2 startposition = this.transform.position;

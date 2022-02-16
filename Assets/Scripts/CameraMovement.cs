@@ -39,9 +39,10 @@ public class CameraMovement : MonoBehaviour
             }
             if(Input.GetMouseButton(0))
             {
-                Vector3 difference = drag - cam.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 difference = drag - cam.ScreenToWorldPoint(Input.mousePosition) ;
                 cam.transform.position = ClampCamera(cam.transform.position + difference);
             }
+            
         }
         //if(isFollowObj)
         //    StartCoroutine(FollowObjectCamera(objFollow));

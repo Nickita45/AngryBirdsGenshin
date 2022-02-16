@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8040219414170149369}
   m_Layer: 0
   m_Name: TartagliaBall
-  m_TagString: Untagged
+  m_TagString: Hydro
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

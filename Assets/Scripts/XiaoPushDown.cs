@@ -27,7 +27,7 @@ public class XiaoPushDown : MonoBehaviour
 
                 
                 isUsedSpell = true;
-                rigidbody2DBullet.AddForce(new Vector2(0, -45), ForceMode2D.Impulse);
+                rigidbody2DBullet.AddForce(new Vector2(0, -90) , ForceMode2D.Impulse);
                 StartCoroutine(setMasToBack(rigidbody2DBullet.mass));
                 gameObject.transform.GetChild(0).GetComponent<SummonerEfferct>().setChareckteristics(Random.Range(10, 15),
                  new Vector2(0, Random.Range(0.2f, 0.65f)), Random.Range(500, 1000),
