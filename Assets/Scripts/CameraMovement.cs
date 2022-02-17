@@ -64,12 +64,15 @@ public class CameraMovement : MonoBehaviour
     }
     public IEnumerator FollowObjectCamera()
     {
-        while(isFollowObj)
+        int koef = (int)(mapRender.transform.localScale.x * 30); 
+
+        while (isFollowObj)
         {
             Vector3 oldPos = objFollow.transform.position;
             yield return new WaitForSeconds(0.001f);
             //print(positionObj);
-            Vector3 differ = (objFollow.transform.position - oldPos) * Time.deltaTime * 10;
+            
+            Vector3 differ = (objFollow.transform.position - oldPos) * Time.deltaTime * koef;
             cam.transform.position = ClampCamera(cam.transform.position  + differ);
             
         }
