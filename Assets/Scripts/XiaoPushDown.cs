@@ -7,6 +7,7 @@ public class XiaoPushDown : MonoBehaviour
     private bool isUsedSpell = false; 
     [SerializeField] public Rigidbody2D rigidbody2DBullet;
     [SerializeField] public float initialVelocity = 1f;
+    public GameObject particleFly,particleHitGround;
     bool isFly = false;
     void Start()
     {
@@ -19,6 +20,7 @@ public class XiaoPushDown : MonoBehaviour
         {
             isFly = true;
             isUsedSpell = false;
+            
         }
         if (Input.GetMouseButtonDown(0))
         {
@@ -27,31 +29,56 @@ public class XiaoPushDown : MonoBehaviour
 
                 
                 isUsedSpell = true;
+                //rigidbody2DBullet.AddForce(new Vector2(0, -90) , ForceMode2D.Impulse);//.velocity = -transform.up * 10.0f;
+                //transform.Translate(Vector3.down * Time.deltaTime * 10.0f, Space.World);
                 rigidbody2DBullet.AddForce(new Vector2(0, -90) , ForceMode2D.Impulse);
                 StartCoroutine(setMasToBack(rigidbody2DBullet.mass));
-                gameObject.transform.GetChild(0).GetComponent<SummonerEfferct>().setChareckteristics(Random.Range(10, 15),
-                 new Vector2(0, Random.Range(0.2f, 0.65f)), Random.Range(500, 1000),
-                 new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(0f, 0.2f)));
-
+                StartCoroutine(spawnEffectFly());
                 //rigidbody2DBullet.mass=50;
             }
         }
+
+        
     }
+    bool isGroundHit=false;
+    IEnumerator spawnEffectFly()
+    {
+        while(isGroundHit == false)
+        {
+           
+            yield return new WaitForSeconds(0.01f);
+            GameObject ExploisionEffect = Instantiate(particleFly,transform.position,Quaternion.identity);
+            Destroy(ExploisionEffect,2f);
+        }
+    }
+    
     // Start is called before the first frame update
     private void OnCollisionEnter2D(Collision2D collision2D)
     {
         
-        isUsedSpell = true;
-
+        if(isUsedSpell == true && isGroundHit == false)
+        {
+           
+            GameObject ExploisionEffect = Instantiate(particleHitGround,transform.position,particleHitGround.transform.rotation);
+            Destroy(ExploisionEffect,2f);
+            isGroundHit = true;
+        }
+        if(this.GetComponent<BallShoot>().enabled == false)
+        {
+            isUsedSpell = true;
+            isGroundHit = true;
+        }
         //rigidbody2DBullet.mass=1;
     }
     IEnumerator setMasToBack(float value)
     {
-        rigidbody2DBullet.mass=20;
+        rigidbody2DBullet.mass=5;
         yield return new WaitForSeconds(0.3f);
-        gameObject.transform.GetChild(1).GetComponent<SummonerEfferct>().setChareckteristics(Random.Range(7, 10), 
-            new Vector2(0, Random.Range(0.2f, 0.65f)), Random.Range(500, 1000),
-            new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(0.3f, 0.6f)));
+        //gameObject.transform.GetChild(1).GetComponent<SummonerEfferct>().setChareckteristics(Random.Range(7, 10), 
+        //    new Vector2(0, Random.Range(0.2f, 0.65f)), Random.Range(500, 1000),
+        //    new Vector2(Random.Range(-2.5f, 2.5f), Random.Range(0.3f, 0.6f)));
+            
         rigidbody2DBullet.mass=value;
+        
     }
 }

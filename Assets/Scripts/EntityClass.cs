@@ -51,6 +51,8 @@ public class EntityClass : MonoBehaviour
 
         Destroy(gameObject);
         LevelManager.Instance.increaseRating(countRating,isEnity);
+        if(gameObject.tag  != "Untagged")
+        ShowElementsButton.Instance.changeActive(false);
     }
     public void setFreeze()
     {

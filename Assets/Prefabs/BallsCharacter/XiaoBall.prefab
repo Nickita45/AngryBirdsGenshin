@@ -179,6 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody2DBullet: {fileID: 0}
   initialVelocity: 2
+  particleFly: {fileID: 2565753291791764102, guid: 947f19a8704a3944daeac7baa804e497, type: 3}
+  particleHitGround: {fileID: 7786291917001668205, guid: 914a5305311080941bb560f99d3e743e, type: 3}
 --- !u!82 &4167172724055893529
 AudioSource:
   m_ObjectHideFlags: 0
@@ -297,3 +299,4 @@ MonoBehaviour:
   flySound:
   - {fileID: 8300000, guid: e87bdad47868c3249bf6c66042e60ddc, type: 3}
   - {fileID: 8300000, guid: 8830509d8ea2208418398bf775da5927, type: 3}
+  specialAttackSound: []

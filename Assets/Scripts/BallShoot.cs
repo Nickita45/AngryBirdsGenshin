@@ -18,12 +18,16 @@ public class BallShoot : MonoBehaviour
 
     private const float SPEEDJUMP = 3, TIMERBEETWEENSTEPS = 0.01f; 
 
+    public RogatkaStripController rogatkaController;
+
     private void Start()
     {
         animation = GetComponent<Animation>();
         rigidbody2DBullet = GetComponent<Rigidbody2D>();
         soundBall = GetComponent<MusicBalls>();
         StartCoroutine(Jump());
+
+
     }
     private void Update()
     {
@@ -38,7 +42,14 @@ public class BallShoot : MonoBehaviour
             else
             {
                 rigidbody2DBullet.position = mousePos;
+                
             }
+            rogatkaController.setStrips(rigidbody2DBullet.position);
+        }
+        else
+        {
+            if(isFirst)
+            rogatkaController.ResetStrips();
         }
 
         if (randomTimeSound < 0f)
@@ -61,22 +72,35 @@ public class BallShoot : MonoBehaviour
     public void OnMouseDown(){
         if(isFirst)
         {
+            //print(Vector2.Distance(rigidbody2DBullet.position,BallSpawnerPos.position));
+            
             isPressed = true;
             Camera.main.GetComponent<CameraMovement>().isPressedOnBall = true;
             rigidbody2DBullet.isKinematic = true;
+            
         }
     }
     public void OnMouseUp(){
         if(isFirst)
         {
+            //print(Vector2.Distance(rigidbody2DBullet.position,BallSpawnerPos.position));
             isPressed = false;
+            if(Vector2.Distance(rigidbody2DBullet.position,BallSpawnerPos.position) < 0.6)
+            {
+                rigidbody2DBullet.position = BallSpawnerPos.position;
+                rigidbody2DBullet.isKinematic = false;
+            }
+            else{
+            
             Camera.main.GetComponent<CameraMovement>().isPressedOnBall = false;
             rigidbody2DBullet.isKinematic = false;
             StartCoroutine(LetGo());
+            }
         }
     }
     IEnumerator LetGo()
     {
+        rigidbody2DBullet.gravityScale = 1;
         Vector3 oldPos = gameObject.transform.position;
         yield return new WaitForSeconds(0.1f);
         animation = null;

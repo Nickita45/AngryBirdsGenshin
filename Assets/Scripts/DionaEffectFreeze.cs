@@ -27,6 +27,13 @@ public class DionaEffectFreeze : MonoBehaviour
             }
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        
+        isUsedSpell = true;
+
+        //rigidbody2DBullet.mass=1;
+    }
     void Search()
     {
 
@@ -44,6 +51,8 @@ public class DionaEffectFreeze : MonoBehaviour
                 this.GetComponent<MusicBalls>().playSpecialAttackSound();
                 this.GetComponent<SpriteRenderer>().enabled = false;
                 this.GetComponent<CircleCollider2D>().enabled = false;
+                //ShowElementsButton.Instance.elements.Remove(this.gameObject);
+                ShowElementsButton.Instance.changeActive(false);
                 //Destroy(gameObject);
             }
         }
