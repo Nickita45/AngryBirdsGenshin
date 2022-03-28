@@ -16,5 +16,8 @@ public class InfoData
         public int Rating = 0;
         public int countStars = 0;//if 1 its completed
     }
-   
+    public string[] squad = {"Tartaglia","Tartaglia","Tartaglia"};
+    
+    public Dictionary<string,int> collection = new Dictionary<string, int>(); //nameCharacter:count
+    
 }

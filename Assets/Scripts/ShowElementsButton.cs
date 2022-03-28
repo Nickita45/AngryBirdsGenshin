@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 public class ShowElementsButton : MonoBehaviour
 {
     public bool isActivated = false;
     public GameObject PrefabElement;
-    Dictionary<string,Color> colors = new Dictionary<string,Color>(){{"Cryo",Color.cyan},
-                                                                {"Hydro",Color.blue},
-                                                                {"Anemo",Color.green}};
+    /*[Serializable]
+    public class elementsIcon
+    {
+        
+        public enum elementTypes { Cryo, Hydro, Anemo, Pyro, Geo, Dendro, Electro};
+        public elementTypes Types;
+        public Sprite sprite;
+    }*/
+    public ElementIconClass[] elementIcons;
+    //Dictionary<string,Color> colors = new Dictionary<string,Color>(){{"Cryo",Color.cyan},
+    //                                                            {"Hydro",Color.blue},
+    //                                                            {"Anemo",Color.green}};
     public List<GameObject> elements = new List<GameObject>();
     public static ShowElementsButton Instance
     {
@@ -82,7 +92,7 @@ public class ShowElementsButton : MonoBehaviour
             Vector2 vector2 = new Vector2(birds[i].transform.position.x,birds[i].transform.position.y+1f);
             gmj = Instantiate(PrefabElement,vector2,PrefabElement.transform.rotation);
             gmj.GetComponent<MoveWithObjects>().setFollowObject(birds[i].transform);
-            gmj.GetComponent<SpriteRenderer>().color = colors[birds[i].tag.ToString()];
+            gmj.GetComponentsInChildren<SpriteRenderer>()[1].sprite = searchSpriteByElement(birds[i].tag.ToString());//.color = colors[birds[i].tag.ToString()];
             elements.Add(gmj);
         }
         foreach(EntityClass entity in entitesWithElementary)
@@ -91,9 +101,19 @@ public class ShowElementsButton : MonoBehaviour
             Vector2 vector2 = new Vector2(entity.transform.position.x,entity.transform.position.y+1f);
             gmj = Instantiate(PrefabElement,vector2,PrefabElement.transform.rotation);
             gmj.GetComponent<MoveWithObjects>().setFollowObject(entity.transform);
-            gmj.GetComponent<SpriteRenderer>().color = colors[entity.tag.ToString()];
+            gmj.GetComponentsInChildren<SpriteRenderer>()[1].sprite = searchSpriteByElement(entity.tag.ToString());//colors[entity.tag.ToString()];
             elements.Add(gmj);
         }
+    }
+    public Sprite searchSpriteByElement(String elementName)
+    {
+        Sprite sprite = elementIcons[0].sprite;
+        for(int i=0;i<elementIcons.Length;i++)
+        {
+            if(elementIcons[i].Types.ToString() == elementName)
+                sprite = elementIcons[i].sprite;
+        }
+        return sprite;
     }
     
 }

@@ -43,6 +43,8 @@ public class DataHandler : MonoBehaviour
         else
         {
             userdata.dialogs = Utility.ToList<bool>(ArrayList.Repeat(false,6));
+            userdata.collection.Add("Tartaglia",3);
+            userdata.collection.Add("Xiao",1);
             SaveData();
             
         }
